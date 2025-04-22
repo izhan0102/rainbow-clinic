@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbow Clinic | Child Care Centre</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+      import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+      
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA3zWF5Q9UZtjDdhPnAKCtCq6YmGNmM93w",
+        authDomain: "rainbow-3f023.firebaseapp.com",
+        projectId: "rainbow-3f023",
+        databaseURL: "https://rainbow-3f023-default-rtdb.firebaseio.com",
+        storageBucket: "rainbow-3f023.firebasestorage.app",
+        messagingSenderId: "699685298660",
+        appId: "1:699685298660:web:ecafc77587074797c367f1",
+        measurementId: "G-8ZXSXP1FEX"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const database = getDatabase(app);
+      
+      // Make Firebase services available globally
+      window.firebaseApp = app;
+      window.firebaseDatabase = database;
+      window.firebaseDatabaseRef = ref;
+      window.firebaseOnValue = onValue;
+    </script>
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="navbar-bubbles">
+            <div class="navbar-bubble"></div>
+            <div class="navbar-bubble"></div>
+            <div class="navbar-bubble"></div>
+            <div class="navbar-bubble"></div>
+        </div>
+        <div class="container">
+            <div class="logo">
+                <img src="https://img.icons8.com/clouds/100/000000/rainbow.png" alt="Rainbow Clinic Logo">
+                <h1>Rainbow Clinic</h1>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-image-container">
+                <img src="/image.jpg" alt="Child therapy session" class="main-hero-image">
+            </div>
+            <div class="hero-content">
+                <div class="title-group">
+                    <h1 class="animated-title"><span class="rainbow-text">Rainbow Clinic</span></h1>
+                    <p class="subhuk-text">Subhuk Gaash</p>
+                </div>
+                <h2 class="tagline">Child Care Centre</h2>
+                <p>We provide specialized mental health care for children in a safe, supportive, and playful environment in Rajbagh, Srinagar.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Book Appointment</a>
+                    <a href="#services" class="btn btn-secondary">Our Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our <span>Services</span></h2>
+            <div class="service-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-comment-medical"></i>
+                    </div>
+                    <h3>Speech Therapy</h3>
+                    <p>We help children with speech and language disorders develop communication skills through personalized therapy sessions.</p>
+                    <a href="#contact" class="service-link">Book Now</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Occupational Therapy</h3>
+                    <p>Our occupational therapy helps children develop fine motor skills and improve sensory processing capabilities.</p>
+                    <a href="#contact" class="service-link">Book Now</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Behavioral</h3>
+                    <p>We help children develop positive behaviors and emotional regulation techniques through structured, evidence-based approaches.</p>
+                    <a href="#contact" class="service-link">Book Now</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Play Therapy</h3>
+                    <p>Through guided play activities, we help children express emotions, develop coping strategies, and build resilience.</p>
+                    <a href="#contact" class="service-link">Book Now</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Group Therapy</h3>
+                    <p>Our group therapy sessions help children develop social skills and practice emotional regulation in a supportive peer environment.</p>
+                    <a href="#contact" class="service-link">Book Now</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Other</h3>
+                    <p>We offer additional specialized services tailored to your child's unique needs. Contact us to discuss how we can provide personalized support.</p>
+                    <a href="#contact" class="service-link">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title">Our <span>Team</span></h2>
+            
+            <!-- Director Profile -->
+            <div class="director-profile" id="directorProfile">
+                <div class="director-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=80" alt="Director" loading="lazy">
+                </div>
+                <div class="director-info">
+                    <h3>Dr. Sarah Johnson</h3>
+                    <p class="director-title">Clinic Director & Child Psychologist</p>
+                    <div class="director-credentials">
+                        <div class="credential-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Ph.D. in Psychology</span>
+                        </div>
+                        <div class="credential-item">
+                            <i class="fas fa-certificate"></i>
+                            <span>Board Certified</span>
+                        </div>
+                        <div class="credential-item">
+                            <i class="fas fa-award"></i>
+                            <span>15+ Years Experience</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Departments -->
+            <div class="departments-container">
+                <!-- Speech Therapy Department -->
+                <div class="department">
+                    <h3 class="department-title">Speech Therapy</h3>
+                    <div class="department-head">
+                        <div class="staff-image">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Head of Speech Therapy">
+                        </div>
+                        <div class="staff-info">
+                            <h4>Dr. Emma Rodriguez</h4>
+                            <p class="staff-title">Department Head</p>
+                        </div>
+                    </div>
+                    <div class="department-staff">
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Mehvish Bashir</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Shubeena Gani</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Aabida Mohammad</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1594839515223-cd20d3c8eba8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Nelofer Gulzar</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Abdul Hamid Gojrey</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Omer Qayoom</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Syed Murtaza Hussain</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Speech Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Farhana Mehdi</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Occupational Therapy Department -->
+                <div class="department">
+                    <h3 class="department-title">Occupational Therapy</h3>
+                    <div class="department-head">
+                        <div class="staff-image">
+                            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Head of Occupational Therapy">
+                        </div>
+                        <div class="staff-info">
+                            <h4>Dr. James Wilson</h4>
+                            <p class="staff-title">Department Head</p>
+                        </div>
+                    </div>
+                    <div class="department-staff">
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Insha Rashid</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Mir Snober Fatah</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1594839515223-cd20d3c8eba8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Mehaq Meraj Mir</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Kawsar Bashir</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Falak Niyaz</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1629425733761-caae3b5f2e50?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Insha Quyoom</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Occupational Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Yasir Ahmad Mir</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Behavioral Therapy Department -->
+                <div class="department">
+                    <h3 class="department-title">Behavioral Therapy</h3>
+                    <div class="department-head">
+                        <div class="staff-image">
+                            <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Head of Behavioral Therapy">
+                        </div>
+                        <div class="staff-info">
+                            <h4>Dr. Amelia Taylor</h4>
+                            <p class="staff-title">Department Head</p>
+                        </div>
+                    </div>
+                    <div class="department-staff">
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Behavioral Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Omer Qayoom</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Behavioral Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Bisma Mushtaq Wani</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Play Therapy Department -->
+                <div class="department">
+                    <h3 class="department-title">Play Therapy</h3>
+                    <div class="department-head">
+                        <div class="staff-image">
+                            <img src="https://images.unsplash.com/photo-1627161683077-e34782c24d81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGJsYWNrJTIwcHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Head of Play Therapy">
+                        </div>
+                        <div class="staff-info">
+                            <h4>Dr. Maya Johnson</h4>
+                            <p class="staff-title">Department Head</p>
+                        </div>
+                    </div>
+                    <div class="department-staff">
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Play Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Robert Torres</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1629747490241-624f07d70e1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Play Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Lily Thompson</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group Therapy Department -->
+                <div class="department">
+                    <h3 class="department-title">Group Therapy</h3>
+                    <div class="department-head">
+                        <div class="staff-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Head of Group Therapy">
+                        </div>
+                        <div class="staff-info">
+                            <h4>Dr. Michael Stevens</h4>
+                            <p class="staff-title">Department Head</p>
+                        </div>
+                    </div>
+                    <div class="department-staff">
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fHByb2Zlc3Npb25hbCUyMHdvbWFufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Group Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Rachel Adams</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                        <div class="staff-member">
+                            <div class="staff-image">
+                                <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHByb2Zlc3Npb25hbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Group Therapist">
+                            </div>
+                            <div class="staff-info">
+                                <h5>Samuel Washington</h5>
+                                <p class="staff-title">Therapist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Our <span>Gallery</span></h2>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1526662092594-e98c1e356d6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpbGQlMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80" alt="Creative play activities" loading="lazy">
+                    <div class="gallery-caption">Creative play</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1615627121117-e3278bc8b1db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y2hpbGQlMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80" alt="Building confidence" loading="lazy">
+                    <div class="gallery-caption">Building confidence</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGhlcmFweXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Therapy environment" loading="lazy">
+                    <div class="gallery-caption">Calm environment</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1607453998774-d533f65dac99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpbGQlMjBkcmF3aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80" alt="Art therapy" loading="lazy">
+                    <div class="gallery-caption">Art therapy</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1489710020360-66e504159b43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hpbGRyZW4lMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80" alt="Group activities" loading="lazy">
+                    <div class="gallery-caption">Group activities</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1489710020360-66e504159b43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hpbGRyZW4lMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80" alt="Safe spaces" loading="lazy">
+                    <div class="gallery-caption">Safe spaces</div>
+                </div>
+            </div>
+            
+            <!-- Gallery Modal -->
+            <div id="galleryModal" class="gallery-modal">
+                <div class="modal-content">
+                    <img id="galleryModalImg" src="" alt="Gallery image">
+                </div>
+                <span class="modal-close">&times;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About <span>Rainbow</span></h2>
+                <div class="about-text">
+                    <p class="highlight-text">At Rainbow Clinic, we believe every child deserves to thrive mentally and emotionally.</p>
+                    <p>Our team of specialized child psychologists creates a nurturing and playful environment where children feel safe, understood, and empowered.</p>
+                    <p>Located in Rajbagh, our "Subhuk Gaash" Rainbow Clinic truly serves as "A Ray of Hope" for children and families seeking professional psychological support.</p>
+                
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-certificate"></i>
+                            <h4>Certified Professionals</h4>
+                            <p>All our therapists are certified child psychology specialists.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h4>Child-Centered Approach</h4>
+                            <p>We prioritize each child's unique needs and experiences.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Safe Environment</h4>
+                            <p>Our clinic provides a secure and comfortable space for healing.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-history"></i>
+                            <h4>Flexible Scheduling</h4>
+                            <p>We offer convenient appointment times to fit your schedule.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <h4>Family Involvement</h4>
+                            <p>We collaborate with families throughout the therapeutic process.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Progress Tracking</h4>
+                            <p>We regularly evaluate and communicate your child's development.</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="btn btn-primary about-cta">Book Your First Session</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Book an <span>Appointment</span></h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Rajbagh, Srinagar</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 9596153432</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>hello@rainbowclinic.com</p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <form id="appointmentForm" class="contact-form">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                    <input type="tel" id="phone" placeholder="Phone Number" required>
+                    <select id="service" required onchange="toggleOtherService()">
+                        <option value="" disabled selected>Service Interested In</option>
+                        <option value="Speech Therapy">Speech Therapy</option>
+                        <option value="Occupational Therapy">Occupational Therapy</option>
+                        <option value="Behavioral">Behavioral</option>
+                        <option value="Play Therapy">Play Therapy</option>
+                        <option value="Group Therapy">Group Therapy</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="otherService" placeholder="Please specify service" style="display: none;">
+                    <div class="date-field-container">
+                        <label for="appointmentDate" class="date-label">Select Appointment Date</label>
+                        <input type="date" id="appointmentDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Book on WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <img src="https://img.icons8.com/clouds/100/000000/rainbow.png" alt="Rainbow Clinic Logo">
+                    <h2>Rainbow Clinic</h2>
+                    <div class="footer-subtitle">
+                        <p class="subhuk-text">Subhuk Gaash</p>
+                        <p class="subtitle">Child Care Centre</p>
+                    </div>
+                </div>
+                <p>Helping children build emotional intelligence and resilience, one smile at a time.</p>
+                <p class="copyright">© 2023 Rainbow Clinic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set min date for appointment date picker to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointmentDate').setAttribute('min', today);
+        
+        // Handle focus and blur for date field to make placeholder-like behavior
+        const dateField = document.getElementById('appointmentDate');
+        const dateLabel = document.querySelector('.date-label');
+        
+        dateField.addEventListener('focus', function() {
+            dateLabel.style.display = 'none';
+        });
+        
+        dateField.addEventListener('blur', function() {
+            if (!this.value) {
+                dateLabel.style.display = 'block';
+            }
+        });
+        
+        // Toggle other service field
+        function toggleOtherService() {
+            const serviceSelect = document.getElementById('service');
+            const otherServiceField = document.getElementById('otherService');
+            
+            if (serviceSelect.value === "Other") {
+                otherServiceField.style.display = "block";
+                otherServiceField.required = true;
+            } else {
+                otherServiceField.style.display = "none";
+                otherServiceField.required = false;
+            }
+        }
+        
+        // Handle booking appointment form submission
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const serviceSelect = document.getElementById('service');
+            const otherService = document.getElementById('otherService').value;
+            const date = document.getElementById('appointmentDate').value;
+            
+            // Determine the service
+            let service = serviceSelect.value;
+            if (service === "Other") {
+                service = otherService;
+            }
+            
+            // Format the message for WhatsApp
+            const message = `Hi, I am ${name}. I want to book an appointment for ${service} on ${date}.`;
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/919596153432?text=${encodeURIComponent(message)}`;
+            
+            // Redirect to WhatsApp
+            window.open(whatsappURL, '_blank');
+        });
+
+        // Smooth scroll when Book Appointment button is clicked
+        document.querySelector('.hero .cta-buttons a[href="#contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+        
+        // Initialize Firebase utilities after page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            // Setup modal for the static gallery images
+            setupFallbackModal();
+            
+            // Setup mobile navigation
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    hamburger.classList.toggle('active');
+                });
+                
+                // Close menu when a link is clicked
+                const navItems = document.querySelectorAll('.nav-links a');
+                navItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        navLinks.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    });
+                });
+            }
+            
+            // Wait a moment to ensure Firebase is initialized
+            setTimeout(function() {
+                // If Firebase is ready and utility functions exist
+                if (window.firebaseDatabase && window.RainbowClinic) {
+                    console.log('Firebase connected successfully');
+                    
+                    // Only load from Firebase if there are images there
+                    // The static images will remain otherwise
+                    window.RainbowClinic.fetchFromDatabase('/gallery', (gallery) => {
+                        if (gallery && Object.keys(gallery).length > 0) {
+                            // Only replace static gallery if Firebase has images
+                            window.RainbowClinic.loadDynamicGallery();
+                        }
+                    });
+                    
+                    // Load team members data
+                    window.RainbowClinic.loadDynamicTeam();
+                    
+                    // Uncomment these lines when you're ready to load other dynamic content
+                    // window.RainbowClinic.loadDynamicServices();
+                    // window.RainbowClinic.loadDynamicTestimonials();
+                }
+            }, 1000);
+        });
+        
+        // Fallback function if Firebase isn't available
+        function loadFallbackGallery(container) {
+            const unsplashImages = [
+                {
+                    url: 'https://images.unsplash.com/photo-1526662092594-e98c1e356d6a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpbGQlMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80',
+                    caption: 'Creative play activities to develop emotional expression'
+                },
+                {
+                    url: 'https://images.unsplash.com/photo-1615627121117-e3278bc8b1db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y2hpbGQlMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80',
+                    caption: 'Building confidence through guided activities'
+                },
+                {
+                    url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGhlcmFweXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                    caption: 'A calm and welcoming therapy environment'
+                },
+                {
+                    url: 'https://images.unsplash.com/photo-1607453998774-d533f65dac99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpbGQlMjBkcmF3aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80',
+                    caption: 'Art therapy sessions for emotional expression'
+                },
+                {
+                    url: 'https://images.unsplash.com/photo-1489710020360-66e504159b43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hpbGRyZW4lMjBwbGF5aW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80',
+                    caption: 'Group activities to develop social skills'
+                },
+                {
+                    url: 'https://images.unsplash.com/photo-1518880073437-13d11c545a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGNoaWxkcmVuJTIwcGxheWluZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                    caption: 'Safe spaces for children to explore and grow'
+                }
+            ];
+            
+            unsplashImages.forEach(img => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                
+                galleryItem.innerHTML = `
+                    <img src="${img.url}" alt="${img.caption}" loading="lazy">
+                    <div class="gallery-caption">${img.caption}</div>
+                `;
+                
+                container.appendChild(galleryItem);
+            });
+        }
+        
+        function setupFallbackModal() {
+            if (document.getElementById('galleryModal')) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'gallery-modal';
+            modal.id = 'galleryModal';
+            
+            modal.innerHTML = `
+                <div class="gallery-modal-content">
+                    <img id="galleryModalImg" src="" alt="Gallery Image">
+                    <div class="gallery-modal-close">&times;</div>
+                </div>
+            `;
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target.classList.contains('gallery-modal-close')) {
+                    modal.classList.remove('active');
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+            });
+            
+            document.body.appendChild(modal);
+            
+            // Add click event for gallery items
+            setTimeout(() => {
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const imgSrc = this.querySelector('img').src;
+                        const modalImg = document.getElementById('galleryModalImg');
+                        
+                        if (modalImg) {
+                            modalImg.src = imgSrc;
+                            modal.classList.add('active');
+                        }
+                    });
+                });
+            }, 500); // Small delay to ensure all items are loaded
+        }
+    </script>
+    
+    <!-- Firebase Utilities -->
+    <script src="firebase-utils.js"></script>
+</body>
+</html>
