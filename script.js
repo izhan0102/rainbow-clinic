@@ -1,763 +1,321 @@
-// Add this function at the beginning of the file
-function addCacheBustingParam(url) {
-    // Skip if URL is null, undefined, or already has a cache busting parameter
-    if (!url || url.includes('_cb=')) return url;
-    
-    // Add timestamp as cache busting parameter
-    const separator = url.includes('?') ? '&' : '?';
-    return `${url}${separator}_cb=${Date.now()}`;
-}
-
-// DOM Elements
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-const navLinksItems = document.querySelectorAll('.nav-link');
-const contactForm = document.getElementById('contactForm');
-const counters = document.querySelectorAll('.counter');
-const heroSlideshow = document.getElementById('heroSlideshow');
-const heroSlides = document.querySelectorAll('.hero-slide');
-const heroDots = document.querySelectorAll('.hero-dot');
-const heroPrevBtn = document.querySelector('.hero-slideshow-nav .prev-btn');
-const heroNextBtn = document.querySelector('.hero-slideshow-nav .next-btn');
-
-// Gallery Elements
-const galleryGrid = document.getElementById('galleryGrid');
-
-// Hero Slideshow variables
-let currentHeroSlide = 0;
-let heroSlideInterval;
-
-// Load gallery images from Firebase
-function loadGalleryImages() {
-    // Create modal elements for image viewing
-    createGalleryModal();
-    
-    // Show loading indicator
-    showGalleryLoading();
-    
-    try {
-        // Direct connection to Firebase database
-        const dbUrl = 'https://muskurahat-166bb-default-rtdb.firebaseio.com';
-        const galleryPath = '/gallery/images.json';
-        const fullUrl = dbUrl + galleryPath;
-        
-        // Fetch gallery data directly from Firebase URL
-        fetch(fullUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Remove loading indicator
-                hideGalleryLoading();
-                
-                // If data is null or empty, initialize database with sample images
-                if (!data) {
-                    console.log('Firebase database is empty. Initializing with sample images...');
-                    initializeGalleryData();
-                    return;
-                }
-                
-                if (!Array.isArray(data) || data.length === 0) {
-                    console.warn('No valid gallery images found in Firebase. Using fallback images.');
-                    loadFallbackGalleryImages();
-                    return;
-                }
-                
-                // Clear existing gallery items
-                galleryGrid.innerHTML = '';
-                
-                // Add images to gallery grid
-                data.forEach((image, index) => {
-                    const galleryItem = document.createElement('div');
-                    galleryItem.className = 'gallery-item loading'; // Start with loading state
-                    galleryItem.setAttribute('data-index', index);
-                    
-                    // Create image element
-                    const img = document.createElement('img');
-                    img.src = addCacheBustingParam(image.src);
-                    img.alt = image.alt || 'Gallery image';
-                    img.loading = 'lazy'; // Lazy load images
-                    
-                    // Remove loading state when image loads
-                    img.onload = function() {
-                        galleryItem.classList.remove('loading');
-                    };
-                    
-                    // Keep loading state if image fails to load
-                    img.onerror = function() {
-                        console.warn(`Failed to load image: ${image.src}`);
-                        galleryItem.innerHTML = '<div class="error-message">Image not available</div>';
-                    };
-                    
-                    // Add caption if available
-                    if (image.caption) {
-                        const caption = document.createElement('div');
-                        caption.className = 'gallery-caption';
-                        caption.textContent = image.caption;
-                        galleryItem.appendChild(caption);
-                    }
-                    
-                    // Add click event to open modal
-                    galleryItem.addEventListener('click', () => {
-                        openGalleryModal(addCacheBustingParam(image.src), image.caption || '');
-                    });
-                    
-                    galleryItem.appendChild(img);
-                    galleryGrid.appendChild(galleryItem);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading gallery images from Firebase:', error);
-                hideGalleryLoading();
-                loadFallbackGalleryImages();
-            });
-    } catch (error) {
-        console.error('Error loading gallery images from Firebase:', error);
-        hideGalleryLoading();
-        loadFallbackGalleryImages();
-    }
-}
-
-// Show gallery loading indicator
-function showGalleryLoading() {
-    // Clear the gallery and show loading indicator
-    galleryGrid.innerHTML = '';
-    
-    const loadingElement = document.createElement('div');
-    loadingElement.className = 'gallery-loading';
-    loadingElement.innerHTML = `
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading gallery images...</div>
-    `;
-    
-    galleryGrid.appendChild(loadingElement);
-}
-
-// Hide gallery loading indicator
-function hideGalleryLoading() {
-    // Remove loading indicator if it exists
-    const loadingElement = galleryGrid.querySelector('.gallery-loading');
-    if (loadingElement) {
-        loadingElement.remove();
-    }
-}
-
-// Initialize gallery data in Firebase if it's empty
-function initializeGalleryData() {
-    console.log('Initializing gallery data in Firebase...');
-    
-    // Check if Firebase authentication is ready
-    if (!window.firebaseAuthReady) {
-        console.log('Waiting for Firebase authentication...');
-        setTimeout(initializeGalleryData, 1000);
-        return;
-    }
-    
-    // Sample gallery images for initialization
-    const sampleImages = [
-        {
-            src: 'images/gallery/education1.jpg',
-            alt: 'Children learning in a classroom',
-            caption: 'Education support for underprivileged children'
-        },
-        {
-            src: 'images/gallery/community1.jpg',
-            alt: 'Community service event',
-            caption: 'Community development projects'
-        },
-        {
-            src: 'images/gallery/education2.jpg',
-            alt: 'Students with new school supplies',
-            caption: 'Distributing educational materials'
-        },
-        {
-            src: 'images/gallery/health1.jpg',
-            alt: 'Health camp for children',
-            caption: 'Health and wellness initiatives'
-        },
-        {
-            src: 'images/gallery/community2.jpg',
-            alt: 'Volunteers working together',
-            caption: 'Volunteer engagement in local communities'
-        },
-        {
-            src: 'images/gallery/education3.jpg',
-            alt: 'Teacher training workshop',
-            caption: 'Teacher training programs'
-        }
-    ];
-    
-    // Upload sample images to Firebase
-    const dbUrl = 'https://muskurahat-166bb-default-rtdb.firebaseio.com';
-    const galleryPath = '/gallery/images.json';
-    const fullUrl = dbUrl + galleryPath;
-    
-    fetch(fullUrl, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(sampleImages)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to initialize gallery data');
-        }
-        console.log('Gallery data initialized successfully');
-        return response.json();
-    })
-    .then(data => {
-        console.log('Sample gallery images uploaded to Firebase');
-        // Reload gallery images from Firebase
-        loadGalleryImages();
-    })
-    .catch(error => {
-        console.error('Error initializing gallery data:', error);
-        hideGalleryLoading();
-        loadFallbackGalleryImages();
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Force all elements to load immediately
+    document.querySelectorAll('img, .card, .service-cards, .about-content, .about-image').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+        el.style.transition = 'none';
     });
-}
-
-// Load fallback gallery images if Firebase fails
-function loadFallbackGalleryImages() {
-    const fallbackImages = [
-        {
-            src: "https://images.unsplash.com/photo-1509099863731-ef4bff19e808?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80",
-            alt: "Children in classroom",
-            caption: "Learning together"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1565945887714-d5139f4eb0ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80", 
-            alt: "Educational workshop",
-            caption: "Interactive learning workshops"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80",
-            alt: "Students studying",
-            caption: "Study sessions"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80",
-            alt: "Food distribution",
-            caption: "Nutrition support"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80",
-            alt: "Community service",
-            caption: "Giving back to communities"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80",
-            alt: "Team collaboration",
-            caption: "Collaborative initiatives"
+    
+    // Ensure hero image loads properly
+    const heroImage = document.querySelector('.main-hero-image');
+    if (heroImage) {
+        heroImage.onload = function() {
+            this.style.opacity = '1';
+        };
+        
+        // If image is already loaded
+        if (heroImage.complete) {
+            heroImage.style.opacity = '1';
         }
-    ];
+    }
     
-    // Clear existing gallery items
-    galleryGrid.innerHTML = '';
+    // Prevent horizontal scroll
+    document.body.style.overflowX = 'hidden';
+    document.documentElement.style.overflowX = 'hidden';
+    document.body.style.maxWidth = '100vw';
+    document.documentElement.style.maxWidth = '100vw';
     
-    // Add fallback images to gallery grid
-    fallbackImages.forEach((image, index) => {
-        const galleryItem = document.createElement('div');
-        galleryItem.className = 'gallery-item';
-        galleryItem.setAttribute('data-index', index);
-        
-        // Create image element
-        const img = document.createElement('img');
-        img.src = addCacheBustingParam(image.src);
-        img.alt = image.alt;
-        img.loading = 'lazy'; // Lazy load images
-        
-        // Add caption if available
-        if (image.caption) {
-            const caption = document.createElement('div');
-            caption.className = 'gallery-caption';
-            caption.textContent = image.caption;
-            galleryItem.appendChild(caption);
+    // Remove any horizontal scrollbars
+    const style = document.createElement('style');
+    style.textContent = `
+        body, html {
+            overflow-x: hidden !important;
+            max-width: 100vw;
+            width: 100%;
         }
         
-        // Add click event to open modal
-        galleryItem.addEventListener('click', () => {
-            openGalleryModal(addCacheBustingParam(image.src), image.caption || '');
+        * {
+            max-width: 100%;
+        }
+        
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .container, section, .hero, .services, .about, .contact {
+            overflow-x: hidden;
+            max-width: 100vw;
+            width: 100%;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Custom cursor
+    const cursor = document.querySelector('.cursor');
+    
+    if (window.innerWidth > 992) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    }
+    
+    // Fix any overflow issues on mobile
+    const fixMobileOverflow = () => {
+        document.body.style.overflowX = 'hidden';
+        document.documentElement.style.overflowX = 'hidden';
+        
+        // Remove any scrollbars that might have been created
+        document.querySelectorAll('div, section, .container').forEach(el => {
+            el.style.maxWidth = '100%';
+            el.style.overflowX = 'hidden';
         });
         
-        galleryItem.appendChild(img);
-        galleryGrid.appendChild(galleryItem);
-    });
-}
-
-// Create modal for gallery images
-function createGalleryModal(imageUrl, title, description) {
-    // Use cache busting for modal image
-    const cachedImageUrl = addCacheBustingParam(imageUrl);
-    
-    const modal = document.createElement('div');
-    modal.className = 'gallery-modal';
-    modal.innerHTML = `
-        <div class="gallery-modal-content">
-            <span class="gallery-modal-close">&times;</span>
-            <img src="${cachedImageUrl}" alt="${title}">
-            <div class="gallery-modal-caption">
-                <h3>${title}</h3>
-                <p>${description}</p>
-            </div>
-        </div>
-    `;
-    
-    return modal;
-}
-
-// Open gallery modal
-function openGalleryModal(src, caption) {
-    const modal = document.getElementById('galleryModal');
-    const modalContent = modal.querySelector('.modal-content');
-    const modalCaption = modal.querySelector('.modal-caption');
-    
-    // Set image source and caption
-    modalContent.src = src;
-    modalCaption.textContent = caption;
-    
-    // Show modal
-    modal.style.display = 'block';
-    
-    // Disable scroll on body
-    document.body.style.overflow = 'hidden';
-}
-
-// Close gallery modal
-function closeGalleryModal() {
-    const modal = document.getElementById('galleryModal');
-    modal.style.display = 'none';
-    
-    // Re-enable scroll on body
-    document.body.style.overflow = '';
-}
-
-// Stat Counter Animation
-function animateCounters() {
-    const counterSection = document.querySelector('.decade-stats');
-    
-    if (!counterSection) return;
-    
-    const sectionPosition = counterSection.getBoundingClientRect().top;
-    const screenPosition = window.innerHeight;
-    
-    if (sectionPosition < screenPosition) {
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText.replace(/,/g, '');
-            
-            // If counter hasn't reached target
-            if (count < target) {
-                // Calculate increment
-                const increment = target / 100;
-                
-                // Animate count
-                if (count + increment < target) {
-                    counter.innerText = Math.ceil(count + increment).toLocaleString();
-                    counter.classList.add('animated');
-                    
-                    // Continue animation
-                    setTimeout(() => {
-                        counter.classList.remove('animated');
-                        animateCounters();
-                    }, 50);
-                } else {
-                    counter.innerText = target.toLocaleString();
-                    counter.classList.add('animated');
-                }
+        // Ensure all content is visible immediately
+        document.querySelectorAll('.card, .about-content, .about-image, .service-cards').forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
+        
+        // Ensure all elements fit within viewport
+        const viewportWidth = window.innerWidth;
+        document.querySelectorAll('img, .card, .service-cards, .hero-content, .about-content').forEach(el => {
+            if (el.offsetWidth > viewportWidth) {
+                el.style.width = '100%';
+                el.style.maxWidth = '100%';
             }
         });
-    } else {
-        // Check again later if section not yet in view
-        window.addEventListener('scroll', animateCounters, { once: true });
-    }
-}
-
-// Add active class to navbar links based on scroll position and animate counters
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navbarHeight = document.getElementById('navbar').offsetHeight;
+    };
     
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - navbarHeight - 20;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
-        
-        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-            document.querySelector(`.nav-link[href="#${sectionId}"]`).classList.add('active');
-        } else {
-            document.querySelector(`.nav-link[href="#${sectionId}"]`).classList.remove('active');
-        }
+    // Run immediately and on resize
+    fixMobileOverflow();
+    window.addEventListener('resize', fixMobileOverflow);
+    window.addEventListener('load', fixMobileOverflow);
+    window.addEventListener('scroll', fixMobileOverflow);
+    
+    // Mobile Navigation
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        fixMobileOverflow(); // Re-apply overflow fixes after menu toggle
     });
     
-    // Check if counters are in view and animate them
-    animateCounters();
-});
-
-// Page load animations
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
+    // Close mobile menu when clicking on a nav link
+    const navItems = document.querySelectorAll('.nav-links a');
     
-    const heroElements = document.querySelectorAll('.hero > *:not(.hero-image-container)');
-    heroElements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, 300 + (index * 200));
-    });
-    
-    // Initialize hero slideshow
-    initHeroSlideshow();
-    
-    // Load gallery images from Firebase
-    loadGalleryImages();
-    
-    // Initialize counters if any
-    if (counters.length > 0) {
-        animateCounters();
-    }
-    
-    // Handle dropdowns for mobile
-    if (window.innerWidth <= 768) {
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            const dropdownLink = dropdown.querySelector('.nav-link');
-            const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-            
-            dropdownLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                this.classList.toggle('active');
-                dropdownMenu.classList.toggle('active');
-            });
-        });
-    }
-    
-    // Handle donation popup
-    const donateButtons = document.querySelectorAll('.open-donate-popup');
-    const donationPopup = document.getElementById('donationPopup');
-    const closePopup = document.querySelector('.close-popup');
-    const donationForm = document.getElementById('donationForm');
-    const donationAmount = document.getElementById('donationAmount');
-    const payButton = document.getElementById('payButton');
-    const paymentSuccess = document.getElementById('paymentSuccess');
-    const submitDonation = document.getElementById('submitDonation');
-    
-    if (donateButtons.length && donationPopup) {
-        donateButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                donationPopup.style.display = 'block';
-            });
-        });
-        
-        closePopup.addEventListener('click', function() {
-            donationPopup.style.display = 'none';
-            // Reset form
-            donationForm.reset();
-            payButton.disabled = true;
-            paymentSuccess.style.display = 'none';
-        });
-        
-        // Close popup if clicking outside content
-        window.addEventListener('click', function(e) {
-            if (e.target === donationPopup) {
-                donationPopup.style.display = 'none';
-                // Reset form
-                donationForm.reset();
-                payButton.disabled = true;
-                paymentSuccess.style.display = 'none';
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                
+                const lines = hamburger.querySelectorAll('.line');
+                lines[0].classList.remove('rotate-down');
+                lines[1].classList.remove('fade-out');
+                lines[2].classList.remove('rotate-up');
+                
+                fixMobileOverflow(); // Re-apply overflow fixes after menu close
             }
         });
-        
-        // Enable pay button when amount is entered
-        donationAmount.addEventListener('input', function() {
-            payButton.disabled = this.value <= 0;
-        });
-        
-        // Simulate payment process
-        payButton.addEventListener('click', function() {
-            // Show success message after "payment"
-            setTimeout(function() {
-                paymentSuccess.style.display = 'block';
-            }, 1000);
-        });
-        
-        // Handle donation submission
-        submitDonation.addEventListener('click', function() {
-            alert('Thank you for your donation! Your contribution will help make a difference.');
-            donationPopup.style.display = 'none';
-            // Reset form
-            donationForm.reset();
-            payButton.disabled = true;
-            paymentSuccess.style.display = 'none';
-        });
-    }
+    });
     
-    // Handle contact form submission
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            alert(`Thank you ${name}! Your message has been sent. We will get back to you soon.`);
-            contactForm.reset();
-        });
-    }
-});
-
-// Initialize Hero Slideshow
-function initHeroSlideshow() {
-    // Set active slide initially
-    goToHeroSlide(0);
-    
-    // Start slideshow
-    startHeroSlideshow();
-}
-
-function startHeroSlideshow() {
-    // Clear any existing interval
-    if (heroSlideInterval) {
-        clearInterval(heroSlideInterval);
-    }
-    
-    // Set up interval for automatic sliding
-    heroSlideInterval = setInterval(nextHeroSlide, 5000);
-}
-
-function nextHeroSlide() {
-    goToHeroSlide((currentHeroSlide + 1) % heroSlides.length);
-}
-
-function goToHeroSlide(index) {
-    // Hide all slides
-    heroSlides.forEach(slide => {
-        slide.classList.remove('active');
-    });
-    
-    // Show the target slide
-    heroSlides[index].classList.add('active');
-    
-    // Update current slide index
-    currentHeroSlide = index;
-    
-    // Update dots if they exist
-    if (heroDots.length > 0) {
-        heroDots.forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
-        });
-    }
-}
-
-// Mobile Menu Toggle
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-    
-    const bars = document.querySelectorAll('.bar');
-    if (menuToggle.classList.contains('active')) {
-        bars[0].style.transform = 'translateY(8px) rotate(45deg)';
-        bars[1].style.opacity = '0';
-        bars[2].style.transform = 'translateY(-8px) rotate(-45deg)';
-    } else {
-        bars[0].style.transform = 'none';
-        bars[1].style.opacity = '1';
-        bars[2].style.transform = 'none';
-    }
-});
-
-// Close mobile menu when a regular link is clicked
-document.querySelectorAll('.nav-links > li:not(.dropdown) > .nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        if (navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            menuToggle.classList.remove('active');
             
-            const bars = document.querySelectorAll('.bar');
-            bars[0].style.transform = 'none';
-            bars[1].style.opacity = '1';
-            bars[2].style.transform = 'none';
-        }
-    });
-});
-
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            const navbarHeight = document.getElementById('navbar').offsetHeight;
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
             
             window.scrollTo({
-                top: targetElement.offsetTop - navbarHeight,
+                top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
+        });
+    });
+    
+    // Navbar color change on scroll
+    const header = document.querySelector('header');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
+    });
+    
+    // Form submission with animation
+    const form = document.querySelector('.contact-form');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation
+            const inputs = this.querySelectorAll('input, textarea');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    input.classList.add('error');
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+            
+            if (isValid) {
+                // Show success message
+                const button = this.querySelector('button');
+                const originalText = button.textContent;
+                
+                button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                button.classList.add('success');
+                
+                // Reset form
+                setTimeout(() => {
+                    form.reset();
+                    button.textContent = originalText;
+                    button.classList.remove('success');
+                }, 3000);
+            }
+        });
+    }
+    
+    // Add animated bubbles to the background
+    const createBubbles = () => {
+        const sections = document.querySelectorAll('.hero, .services, .about, .contact');
+        
+        sections.forEach(section => {
+            const numberOfBubbles = 5;
+            
+            for (let i = 0; i < numberOfBubbles; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('background-bubble');
+                
+                // Random position, size and animation delay
+                const size = Math.random() * 50 + 20;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${posX}%`;
+                bubble.style.top = `${posY}%`;
+                bubble.style.animationDelay = `${delay}s`;
+                bubble.style.animationDuration = `${duration}s`;
+                
+                // Add random color based on our theme
+                const colors = ['rgba(33, 150, 243, 0.2)', 'rgba(255, 128, 171, 0.2)', 'rgba(13, 71, 161, 0.1)'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                bubble.style.backgroundColor = randomColor;
+                
+                section.appendChild(bubble);
+            }
+        });
+    };
+    
+    createBubbles();
+    
+    // Active navigation based on scroll position
+    const sections = document.querySelectorAll('section');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (pageYOffset >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${current}`) {
+                item.classList.add('active');
+            }
+        });
+    });
+    
+    // Add a little animation to the cards on hover
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const icon = card.querySelector('.card-icon');
+            icon.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            }, 300);
+        });
     });
 });
 
-// Global AJAX loading indicator functions
-function showAjaxLoader() {
-    const loader = document.querySelector('.ajax-loader');
-    if (!loader) {
-        const newLoader = document.createElement('div');
-        newLoader.className = 'ajax-loader';
-        document.body.appendChild(newLoader);
-        
-        // Force reflow before adding active class
-        newLoader.offsetWidth;
-        
-        setTimeout(() => {
-            newLoader.classList.add('active');
-        }, 10);
-        
-        return newLoader;
-    }
+// Gallery Modal functionality
+function setupGalleryModal() {
+    const modal = document.getElementById('galleryModal');
+    const modalClose = document.querySelector('.modal-close');
+    const modalImg = document.getElementById('galleryModalImg');
+    const galleryItems = document.querySelectorAll('.gallery-item');
     
-    loader.classList.add('active');
-    return loader;
-}
-
-function hideAjaxLoader() {
-    const loader = document.querySelector('.ajax-loader');
-    if (loader) {
-        loader.classList.remove('active');
-        
-        // Remove from DOM after animation completes
-        setTimeout(() => {
-            if (loader && loader.parentNode) {
-                loader.parentNode.removeChild(loader);
-            }
-        }, 300);
-    }
-}
-
-// Page loading functions
-function showPageLoading(message = 'Loading...') {
-    const existingLoader = document.querySelector('.page-loading');
-    
-    if (existingLoader) {
-        const textEl = existingLoader.querySelector('.page-loading-text');
-        if (textEl) textEl.textContent = message;
-        existingLoader.classList.add('active');
-        return existingLoader;
-    }
-    
-    const loader = document.createElement('div');
-    loader.className = 'page-loading';
-    loader.innerHTML = `
-        <div class="page-spinner"></div>
-        <div class="page-loading-text">${message}</div>
-    `;
-    
-    document.body.appendChild(loader);
-    
-    // Force reflow before adding active class
-    loader.offsetWidth;
-    
-    setTimeout(() => {
-        loader.classList.add('active');
-    }, 10);
-    
-    return loader;
-}
-
-function hidePageLoading() {
-    const loader = document.querySelector('.page-loading');
-    if (loader) {
-        loader.classList.remove('active');
-        
-        // Remove from DOM after animation completes
-        setTimeout(() => {
-            if (loader && loader.parentNode) {
-                loader.parentNode.removeChild(loader);
-            }
-        }, 300);
-    }
-}
-
-// Button loading state functions
-function setButtonLoading(button, isLoading = true) {
-    if (!button) return;
-    
-    if (isLoading) {
-        button.classList.add('loading');
-        
-        // Save original text
-        const btnText = button.innerHTML;
-        button.setAttribute('data-original-text', btnText);
-        
-        // Create spinner and text container
-        const spinner = document.createElement('span');
-        spinner.className = 'btn-spinner';
-        
-        const textSpan = document.createElement('span');
-        textSpan.className = 'btn-text';
-        textSpan.innerHTML = btnText;
-        
-        button.innerHTML = '';
-        button.appendChild(spinner);
-        button.appendChild(textSpan);
-    } else {
-        button.classList.remove('loading');
-        
-        // Restore original text
-        const originalText = button.getAttribute('data-original-text');
-        if (originalText) {
-            button.innerHTML = originalText;
-            button.removeAttribute('data-original-text');
-        }
-    }
-}
-
-// Example of using AJAX with loader
-function fetchWithLoading(url, options = {}) {
-    showAjaxLoader();
-    
-    return fetch(url, options)
-        .then(response => {
-            hideAjaxLoader();
-            return response;
-        })
-        .catch(error => {
-            hideAjaxLoader();
-            throw error;
+    // Setup click events for gallery items
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const imgSrc = item.querySelector('img').src;
+            modalImg.src = imgSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
         });
+    });
+    
+    // Close modal on click
+    modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    });
+    
+    // Close modal on outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
 }
 
-// Add event listeners to initialize loaders when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Add the AJAX loader to the DOM
-    const ajaxLoader = document.createElement('div');
-    ajaxLoader.className = 'ajax-loader';
-    document.body.appendChild(ajaxLoader);
+// Initialize the gallery modal when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupGalleryModal();
     
-    // Example intercepting all fetch requests to show loader
-    const originalFetch = window.fetch;
-    window.fetch = function() {
-        showAjaxLoader();
-        return originalFetch.apply(this, arguments)
-            .then(response => {
-                hideAjaxLoader();
-                return response;
-            })
-            .catch(error => {
-                hideAjaxLoader();
-                throw error;
-            });
-    };
+    // Add hover effects to team members
+    const teamMembers = document.querySelectorAll('.team-member');
+    
+    teamMembers.forEach(member => {
+        member.addEventListener('mouseenter', () => {
+            member.style.transform = 'translateY(-10px)';
+        });
+        
+        member.addEventListener('mouseleave', () => {
+            member.style.transform = 'translateY(0)';
+        });
+    });
 }); 
