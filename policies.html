@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <!-- Cache control meta tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Favicon -->
+    <link rel="icon" href="/logo.jpg" type="image/jpeg">
+    <link rel="shortcut icon" href="/logo.jpg" type="image/jpeg">
+    <script>
+        // Force a hard refresh and clear cookies on page load
+        if (performance.navigation.type !== 1) { // Check if not already a refresh
+            // Clear cookies
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i];
+                const eqPos = cookie.indexOf("=");
+                const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+            }
+            
+            // Force cache clear and reload
+            window.location.reload(true);
+        }
+    </script>
+    <title>Muskurahat Foundation - Policies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Comic+Neue:wght@400;700&family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <style>
+        .policy-page {
+            padding: 120px 0 60px;
+            background-color: #f9f9f9;
+        }
+        
+        .policy-navigation {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 0;
+            z-index: 900;
+            border-radius: 0;
+            width: 100%;
+            max-width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .policy-nav-spacer {
+            height: 70px;
+        }
+        
+        .policy-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .policy-nav-links a {
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .policy-nav-links a:hover, .policy-nav-links a.active {
+            background-color: var(--yellow-color);
+            color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+        
+        .policy-section {
+            scroll-margin-top: 160px;
+            padding: 30px 0;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .policy-section .section-header {
+            margin-bottom: 30px;
+        }
+        
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home i {
+            margin-right: 5px;
+        }
+        
+        .back-to-home:hover {
+            color: var(--yellow-color);
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .policy-navigation {
+                top: 60px;
+                padding: 10px 0;
+            }
+            
+            .policy-nav-spacer {
+                height: 150px;
+            }
+            
+            .policy-section {
+                scroll-margin-top: 220px;
+            }
+            
+            .policy-nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .policy-link {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="/logo.jpg" alt="Muskurahat Foundation Logo" class="logo-image">
+                </a>
+            </div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#home" class="nav-link">Home</a></li>
+            <li><a href="index.html#vision" class="nav-link">Vision</a></li>
+            <li><a href="index.html#impact" class="nav-link">Impact</a></li>
+            <li><a href="index.html#join-now" class="nav-link">Get Involved</a></li>
+            <li><a href="index.html#shop" class="nav-link">Shop</a></li>
+            <li><a href="index.html#gallery" class="nav-link">Gallery</a></li>
+            <li><a href="index.html#about" class="nav-link">About</a></li>
+            <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="nav-link">Policies</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#privacy-policy" class="dropdown-link" onclick="activateTab(document.querySelector('.policy-nav-links a[href=\'#privacy-policy\']'))">Privacy Policy</a></li>
+                    <li><a href="#terms-conditions" class="dropdown-link" onclick="activateTab(document.querySelector('.policy-nav-links a[href=\'#terms-conditions\']'))">Terms & Conditions</a></li>
+                    <li><a href="#refund-policy" class="dropdown-link" onclick="activateTab(document.querySelector('.policy-nav-links a[href=\'#refund-policy\']'))">Refund Policy</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="donate-btn">
+            <a href="index.html#donate" class="btn open-donate-popup"><i class="fas fa-heart"></i> Donate Now!</a>
+        </div>
+    </nav>
+
+    <!-- Policy Page Content -->
+    <div class="policy-page">
+        <div class="container">
+            <a href="index.html" class="back-to-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            
+            <div class="policy-navigation">
+                <div class="policy-nav-links">
+                    <a href="#privacy-policy" onclick="activateTab(this)">Privacy Policy</a>
+                    <a href="#terms-conditions" onclick="activateTab(this)">Terms & Conditions</a>
+                    <a href="#refund-policy" onclick="activateTab(this)">Refund Policy</a>
+                </div>
+            </div>
+            
+            <!-- Add spacer div to account for fixed navigation -->
+            <div class="policy-nav-spacer"></div>
+            
+            <!-- Privacy Policy Section -->
+            <div id="privacy-policy" class="policy-section">
+                <div class="section-header">
+                    <h2>Privacy <span class="highlight">Policy</span></h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="policy-content">
+                    <p style="margin-bottom: 15px;">Last Updated: January 1, 2025</p>
+                    
+                    <h3>1. Introduction</h3>
+                    <p>MASHEK Foundation ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+                    
+                    <h3>2. Information We Collect</h3>
+                    <p>We may collect the following types of information:</p>
+                    <ul>
+                        <li><strong>Personal Information:</strong> Name, email address, phone number, postal address, and other information you provide when filling out forms on our website.</li>
+                        <li><strong>Donation Information:</strong> Payment details, donation amount, and frequency of donations.</li>
+                        <li><strong>Automatically Collected Information:</strong> IP address, browser type, device information, pages visited, and time spent on those pages.</li>
+                        <li><strong>Cookies and Similar Technologies:</strong> We use cookies and similar tracking technologies to track activity on our website and hold certain information.</li>
+                    </ul>
+                    
+                    <h3>3. How We Use Your Information</h3>
+                    <p>We may use the information we collect for various purposes, including:</p>
+                    <ul>
+                        <li>Processing and managing your donations</li>
+                        <li>Communicating with you about our initiatives, programs, and events</li>
+                        <li>Improving our website and services</li>
+                        <li>Sending newsletters and promotional materials (if you have opted in)</li>
+                        <li>Complying with legal obligations</li>
+                        <li>Processing volunteer or employment applications</li>
+                    </ul>
+                    
+                    <h3>4. Data Sharing and Disclosure</h3>
+                    <p>We may share your information with:</p>
+                    <ul>
+                        <li><strong>Service Providers:</strong> Third-party vendors who provide services on our behalf, such as payment processing, data analysis, email delivery, and website hosting.</li>
+                        <li><strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities.</li>
+                        <li><strong>Protection of Rights:</strong> We may disclose information to protect our rights, privacy, safety, or property, and that of our donors, beneficiaries, and others.</li>
+                    </ul>
+                    <p>We do not sell or rent your personal information to third parties for their marketing purposes.</p>
+                    
+                    <h3>5. Data Security</h3>
+                    <p>We implement appropriate security measures to protect against unauthorized access, alteration, disclosure, or destruction of your personal data. However, no method of transmission over the Internet or electronic storage is 100% secure.</p>
+                    
+                    <h3>6. Your Rights</h3>
+                    <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
+                    <ul>
+                        <li>Access to your personal data</li>
+                        <li>Correction of inaccurate data</li>
+                        <li>Deletion of your data</li>
+                        <li>Restriction of processing</li>
+                        <li>Data portability</li>
+                        <li>Objection to processing</li>
+                    </ul>
+                    <p>To exercise these rights, please contact us using the details provided in the "Contact Us" section.</p>
+                    
+                    <h3>7. Children's Privacy</h3>
+                    <p>Our website is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.</p>
+                    
+                    <h3>8. Changes to This Privacy Policy</h3>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+                    
+                    <h3>9. Contact Us</h3>
+                    <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                    <p>MASHEK Foundation<br>
+                    Anantnag, J&K (UT), India - 192101<br>
+                    Email: mashek.org@gmail.com</p>
+                </div>
+            </div>
+            
+            <!-- Terms and Conditions Section -->
+            <div id="terms-conditions" class="policy-section">
+                <div class="section-header">
+                    <h2>Terms & <span class="highlight">Conditions</span></h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="policy-content">
+                    <p style="margin-bottom: 15px;">Last Updated: January 1, 2025</p>
+                    
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using the MASHEK Foundation website ("Website"), you accept and agree to be bound by these Terms and Conditions. If you do not agree to these Terms, please do not use our Website.</p>
+                    
+                    <h3>2. Use of Website</h3>
+                    <p>You agree to use our Website for lawful purposes and in a manner that does not infringe upon the rights of others. Prohibited activities include but are not limited to:</p>
+                    <ul>
+                        <li>Using the Website in any way that violates applicable laws or regulations</li>
+                        <li>Attempting to interfere with the proper functioning of the Website</li>
+                        <li>Engaging in any activity that disrupts or diminishes the quality of our services</li>
+                        <li>Attempting to gain unauthorized access to any part of the Website</li>
+                        <li>Using the Website to transmit malware or other harmful code</li>
+                    </ul>
+                    
+                    <h3>3. Intellectual Property</h3>
+                    <p>All content on this Website, including but not limited to text, graphics, logos, images, audio clips, digital downloads, and software, is the property of MASHEK Foundation or its content suppliers and is protected by international copyright laws. The compilation of all content on this Website is the exclusive property of MASHEK Foundation and is protected by international copyright laws.</p>
+                    
+                    <h3>4. User Contributions</h3>
+                    <p>Users may submit content to the Website, including comments, feedback, and testimonials. By submitting content, you grant MASHEK Foundation a non-exclusive, royalty-free, perpetual, irrevocable right to use, reproduce, modify, adapt, publish, translate, distribute, and display such content worldwide.</p>
+                    
+                    <h3>5. Donations</h3>
+                    <p>When making donations through our Website:</p>
+                    <ul>
+                        <li>You agree to provide accurate and complete information</li>
+                        <li>You authorize us to charge your chosen payment method</li>
+                        <li>You acknowledge that processing of donations may be subject to the terms and conditions of the payment processor</li>
+                        <li>Tax receipts will be issued in accordance with applicable laws</li>
+                    </ul>
+                    
+                    <h3>6. Limitation of Liability</h3>
+                    <p>MASHEK Foundation shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages resulting from your access to or use of, or inability to access or use, the Website or any content thereon. The Website is provided on an "as is" and "as available" basis without any warranties of any kind.</p>
+                    
+                    <h3>7. Indemnification</h3>
+                    <p>You agree to indemnify, defend, and hold harmless MASHEK Foundation, its officers, directors, employees, agents, and affiliates from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising from your violation of these Terms, your use of the Website, or your violation of any rights of another.</p>
+                    
+                    <h3>8. Links to Third-Party Websites</h3>
+                    <p>Our Website may contain links to third-party websites that are not owned or controlled by MASHEK Foundation. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites. We encourage you to review the terms and privacy policies of any third-party websites you visit.</p>
+                    
+                    <h3>9. Changes to Terms</h3>
+                    <p>MASHEK Foundation reserves the right to modify these Terms at any time. Updated Terms will be posted on this page with a revised "Last Updated" date. Your continued use of the Website after any changes indicates your acceptance of the modified Terms.</p>
+                    
+                    <h3>10. Governing Law</h3>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions.</p>
+                    
+                    <h3>11. Contact Information</h3>
+                    <p>If you have any questions about these Terms, please contact us at:</p>
+                    <p>MASHEK Foundation<br>
+                    Anantnag, J&K (UT), India - 192101<br>
+                    Email: mashek.org@gmail.com</p>
+                </div>
+            </div>
+            
+            <!-- Refund Policy Section -->
+            <div id="refund-policy" class="policy-section">
+                <div class="section-header">
+                    <h2>Refund <span class="highlight">Policy</span></h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="policy-content">
+                    <p style="margin-bottom: 15px;">Last Updated: January 1, 2025</p>
+                    
+                    <h3>1. Donations</h3>
+                    <p>MASHEK Foundation is a registered non-profit organization dedicated to improving the lives of underprivileged children in India. Donations made to our organization are used to support our various programs and initiatives. We want to ensure transparency regarding our refund policy for donations.</p>
+                    
+                    <h3>2. General Donation Refund Policy</h3>
+                    <p>In general, donations to MASHEK Foundation are non-refundable. As a charitable organization, we rely on donations to plan and implement our programs. Once a donation is made, it is immediately put to use in supporting our mission.</p>
+                    
+                    <h3>3. Exceptions for Refunds</h3>
+                    <p>Despite our general no-refund policy, we understand that exceptional circumstances may arise. We will consider refund requests in the following situations:</p>
+                    <ul>
+                        <li><strong>Duplicate Donations:</strong> If you have accidentally made a duplicate donation, we will refund one of the donations upon verification.</li>
+                        <li><strong>Technical Errors:</strong> If a technical error resulted in an incorrect donation amount or multiple unintended donations, we will issue a refund after investigation.</li>
+                        <li><strong>Unauthorized Transactions:</strong> If you believe that a donation was made using your financial information without your authorization, please contact us immediately.</li>
+                    </ul>
+                    
+                    <h3>4. Timeframe for Refund Requests</h3>
+                    <p>All refund requests must be submitted within 30 days of the donation date. Requests made after this period may not be eligible for a refund.</p>
+                    
+                    <h3>5. Process for Requesting a Refund</h3>
+                    <p>To request a refund, please contact us at mashek.org@gmail.com with the following information:</p>
+                    <ul>
+                        <li>Your full name</li>
+                        <li>Date of donation</li>
+                        <li>Amount donated</li>
+                        <li>Payment method used</li>
+                        <li>Reason for requesting a refund</li>
+                        <li>Any relevant transaction details or receipts</li>
+                    </ul>
+                    
+                    <h3>6. Processing Time</h3>
+                    <p>We will review refund requests as quickly as possible. If approved, refunds will typically be processed within 10-15 business days. The time it takes for the refund to appear in your account depends on your payment method and financial institution.</p>
+                    
+                    <h3>7. Product Purchases</h3>
+                    <p>For merchandise purchased through our online store:</p>
+                    <ul>
+                        <li><strong>Return Period:</strong> Items may be returned within 14 days of receipt if they are in unused condition with original packaging.</li>
+                        <li><strong>Damaged or Defective Items:</strong> If you receive a damaged or defective item, please contact us within 7 days of receipt with photos of the damage/defect.</li>
+                        <li><strong>Return Shipping:</strong> Return shipping costs are the responsibility of the customer unless the item is damaged or defective.</li>
+                        <li><strong>Refund Processing:</strong> Once we receive and inspect the returned item, we will process your refund within 7 business days.</li>
+                    </ul>
+                    
+                    <h3>8. Event Registrations</h3>
+                    <p>Refunds for event registrations are subject to the following conditions:</p>
+                    <ul>
+                        <li>Cancellations made more than 30 days before the event are eligible for a full refund.</li>
+                        <li>Cancellations made 15-30 days before the event are eligible for a 50% refund.</li>
+                        <li>Cancellations made less than 15 days before the event are not eligible for a refund.</li>
+                        <li>If MASHEK Foundation cancels an event, registrants will receive a full refund.</li>
+                    </ul>
+                    
+                    <h3>9. Changes to This Policy</h3>
+                    <p>We reserve the right to modify this Refund Policy at any time. Any changes will be effective immediately upon posting the updated policy on our website.</p>
+                    
+                    <h3>10. Contact Us</h3>
+                    <p>If you have any questions about our Refund Policy, please contact us at:</p>
+                    <p>MASHEK Foundation<br>
+                    Anantnag, J&K (UT), India - 192101<br>
+                    Email: mashek.org@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 <span class="highlight">MASHEK Foundation</span>. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="policies.html#privacy-policy">Privacy Policy</a>
+                    <span class="footer-divider">|</span>
+                    <a href="policies.html#terms-conditions">Terms & Conditions</a>
+                    <span class="footer-divider">|</span>
+                    <a href="policies.html#refund-policy">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle URL hash for direct section access
+        const hash = window.location.hash;
+        if (hash) {
+            // Scroll to the section after a short delay to ensure the page is loaded
+            setTimeout(() => {
+                const section = document.querySelector(hash);
+                if (section) {
+                    // Smooth scroll to the section with offset for fixed header
+                    scrollToSection(section);
+                    
+                    // Activate the corresponding tab
+                    const tab = document.querySelector(`.policy-nav-links a[href="${hash}"]`);
+                    if (tab) {
+                        activateTab(tab);
+                    }
+                }
+            }, 300);
+        } else {
+            // If no hash, activate the first tab by default and scroll to it
+            const firstTab = document.querySelector('.policy-nav-links a');
+            if (firstTab) {
+                activateTab(firstTab);
+                const firstSection = document.querySelector(firstTab.getAttribute('href'));
+                if (firstSection) {
+                    scrollToSection(firstSection);
+                }
+            }
+        }
+        
+        // Add click handlers to all policy navigation links
+        const policyNavLinks = document.querySelectorAll('.policy-nav-links a');
+        policyNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    // Smooth scroll to the section
+                    scrollToSection(targetSection);
+                    
+                    // Update the URL hash without jumping
+                    history.pushState(null, null, targetId);
+                    
+                    // Activate the tab
+                    activateTab(this);
+                }
+            });
+        });
+        
+        // Handle mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+        }
+        
+        // Handle dropdown menus in mobile view
+        const dropdownLinks = document.querySelectorAll('.dropdown > .nav-link');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Toggle dropdown menu
+                const dropdown = this.nextElementSibling;
+                
+                // Close all other dropdowns first
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    if (menu !== dropdown) {
+                        menu.classList.remove('active');
+                    }
+                });
+                
+                // Toggle this dropdown
+                dropdown.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Dropdown link click handler
+        const dropdownItemLinks = document.querySelectorAll('.dropdown-link');
+        dropdownItemLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the target section ID
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    // Close the mobile menu
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    
+                    // Reset hamburger icon
+                    const bars = menuToggle.querySelectorAll('.bar');
+                    bars[0].style.transform = 'none';
+                    bars[1].style.opacity = '1';
+                    bars[2].style.transform = 'none';
+                    
+                    // Scroll to the section
+                    scrollToSection(targetSection);
+                    
+                    // Update URL hash
+                    history.pushState(null, null, targetId);
+                    
+                    // Activate the corresponding tab in the policy navigation
+                    const tab = document.querySelector(`.policy-nav-links a[href="${targetId}"]`);
+                    if (tab) {
+                        activateTab(tab);
+                    }
+                }
+            });
+        });
+    });
+    
+    function activateTab(tab) {
+        // Remove active class from all tabs
+        const tabs = document.querySelectorAll('.policy-nav-links a');
+        tabs.forEach(t => t.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        tab.classList.add('active');
+    }
+    
+    function scrollToSection(section) {
+        // Calculate position to scroll to (with offset for fixed header)
+        const rect = section.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const offsetPosition = rect.top + scrollTop - 160; // Increased offset for fixed navigation
+        
+        // Scroll to the calculated position
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+</body>
+</html> 
