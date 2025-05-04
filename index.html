@@ -53,22 +53,26 @@
         <div class="container">
             <div class="logo">
                 <img src="logo.jpg" alt="Rainbow Clinic Logo">
-                <h1>
-                    <span class="r-letter">R</span>
-                    <span class="a-letter">a</span>
-                    <span class="i-letter">i</span>
-                    <span class="n-letter">n</span>
-                    <span class="b-letter">b</span>
-                    <span class="o-letter">o</span>
-                    <span class="w-letter">w</span>
-                    <span class="space"></span>
-                    <span class="c-letter">C</span>
-                    <span class="l-letter">l</span>
-                    <span class="i-letter">i</span>
-                    <span class="n-letter">n</span>
-                    <span class="i-letter">i</span>
-                    <span class="c-letter">c</span>
-                </h1>
+                <div class="logo-text-container">
+                    <p class="header-subhuk">Subhuk Gaash</p>
+                    <h1>
+                        <span class="r-letter">R</span>
+                        <span class="a-letter">a</span>
+                        <span class="i-letter">i</span>
+                        <span class="n-letter">n</span>
+                        <span class="b-letter">b</span>
+                        <span class="o-letter">o</span>
+                        <span class="w-letter">w</span>
+                        <span class="space"></span>
+                        <span class="c-letter">C</span>
+                        <span class="l-letter">l</span>
+                        <span class="i-letter">i</span>
+                        <span class="n-letter">n</span>
+                        <span class="i-letter">i</span>
+                        <span class="c-letter">c</span>
+                    </h1>
+                    <p class="header-childcare">Child Care Center</p>
+                </div>
             </div>
             <nav>
                 <ul class="nav-links">
@@ -647,7 +651,7 @@
                                 <img src="/turab-sp.jpg" alt="Speech Therapy Head">
                             </div>
                             <div class="dept-head-info">
-                                <h4>Turab</h4>
+                                <h4>Turab Mir</h4>
                                 <p class="staff-title">Head of Department</p>
                             </div>
                         </div>
@@ -685,7 +689,7 @@
                                 <img src="/owais-o.jpg" alt="Occupational Therapy Head">
                             </div>
                             <div class="dept-head-info">
-                                <h4>Owais</h4>
+                                <h4>Owais Ahmad</h4>
                                 <p class="staff-title">Head of Department</p>
                             </div>
                         </div>
@@ -891,8 +895,8 @@
                         </select>
                     </div>
                     <div class="date-field-container">
-                        <label for="appointmentDate" class="date-label">Select Appointment Date</label>
                         <input type="date" id="appointmentDate" required>
+                        <span class="date-placeholder">Select Appointment Date</span>
                     </div>
                     <button type="submit" class="btn btn-primary">Book on WhatsApp</button>
                 </form>
@@ -956,17 +960,25 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('appointmentDate').setAttribute('min', today);
         
-        // Handle focus and blur for date field to make placeholder-like behavior
+        // Handle date field placeholder visibility
         const dateField = document.getElementById('appointmentDate');
-        const dateLabel = document.querySelector('.date-label');
+        const datePlaceholder = document.querySelector('.date-placeholder');
+        
+        dateField.addEventListener('change', function() {
+            if (this.value) {
+                datePlaceholder.style.opacity = '0';
+            } else {
+                datePlaceholder.style.opacity = '1';
+            }
+        });
         
         dateField.addEventListener('focus', function() {
-            dateLabel.style.display = 'none';
+            datePlaceholder.style.opacity = '0';
         });
         
         dateField.addEventListener('blur', function() {
             if (!this.value) {
-                dateLabel.style.display = 'block';
+                datePlaceholder.style.opacity = '1';
             }
         });
         

@@ -181,7 +181,7 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: #ffcce6; /* Light pink background */
+    background-color: #e8f5e9; /* Light greenish background */
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
     transition: var(--transition);
@@ -208,6 +208,14 @@ header .container {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    width: 100%;
+}
+
 .logo h1, .logo h2 {
     font-family: 'Nunito', sans-serif;
     font-size: 2.2rem;
@@ -217,19 +225,50 @@ header .container {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+.header-subhuk {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #555;
+    margin: 0 0 2px 0;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    align-self: flex-end;
+}
+
+.header-childcare {
+    font-size: 0.9rem;
+    font-family: Arial, sans-serif;
+    color: #555;
+    margin: 2px 0 0 0;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    align-self: center;
+}
+
+.header-slogan {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #555;
+    margin: 0;
+    align-self: flex-end;
+    margin-top: -2px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
 .logo h1 span, .logo h2 span {
     display: inline-block;
     letter-spacing: -1px;
     margin: 0 1px;
 }
 
-.logo .r-letter { color: #cc0000; } /* Even Darker Red */
-.logo .a-letter { color: #cc4400; } /* Even Darker Orange */
-.logo .i-letter { color: #997700; } /* Even Darker Yellow */
-.logo .n-letter { color: #006600; } /* Even Darker Green */
-.logo .b-letter { color: #003399; } /* Even Darker Blue */
-.logo .o-letter { color: #330066; } /* Even Darker Indigo */
-.logo .w-letter { color: #660088; } /* Even Darker Violet */
+.logo .r-letter { color: #ff0000; } /* Red */
+.logo .a-letter { color: #ffcc00; } /* Yellow */
+.logo .i-letter { color: #0066ff; } /* Blue */
+.logo .n-letter { color: #00cc00; } /* Green */
+.logo .b-letter { color: #ff8800; } /* Orange */
+.logo .o-letter { color: #0066ff; } /* Blue */
+.logo .w-letter { color: #ff66cc; } /* Pink */
 .logo .c-letter { color: #990044; } /* Even Darker Pink */
 .logo .l-letter { color: #006688; } /* Even Darker Cyan */
 .logo .space { margin: 0 1px; }
@@ -483,13 +522,13 @@ header .container {
     letter-spacing: -0.5px;
 }
 
-.rainbow-text .r-letter { color: #dd0000; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Red */
-.rainbow-text .a-letter { color: #e05d00; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Orange */
-.rainbow-text .i-letter { color: #bb9900; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Yellow */
-.rainbow-text .n-letter { color: #009900; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Green */
-.rainbow-text .b-letter { color: #0044cc; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Blue */
-.rainbow-text .o-letter { color: #4b0082; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Indigo */
-.rainbow-text .w-letter { color: #8800aa; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Violet */
+.rainbow-text .r-letter { color: #ff0000; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Red */
+.rainbow-text .a-letter { color: #ffcc00; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Yellow */
+.rainbow-text .i-letter { color: #0066ff; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Blue */
+.rainbow-text .n-letter { color: #00cc00; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Green */
+.rainbow-text .b-letter { color: #ff8800; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Orange */
+.rainbow-text .o-letter { color: #0066ff; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Blue */
+.rainbow-text .w-letter { color: #ff66cc; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Pink */
 .rainbow-text .c-letter { color: #cc0066; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Pink */
 .rainbow-text .l-letter { color: #0088aa; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); } /* Darker Cyan */
 .rainbow-text .space { margin: 0 2px; }
@@ -1471,6 +1510,25 @@ footer {
         grid-template-columns: 1fr;
         gap: 30px;
     }
+
+    /* Header slogan responsive styles */
+    .header-slogan {
+        font-size: 0.65rem;
+        margin-top: -5px;
+    }
+
+    /* Header responsive styles */
+    .header-subhuk, .header-childcare {
+        font-size: 0.8rem;
+    }
+    
+    .header-subhuk {
+        margin: 0 0 1px 0;
+    }
+    
+    .header-childcare {
+        margin: 1px 0 0 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1512,6 +1570,11 @@ footer {
     
     .logo h1, .logo h2 {
         font-size: 1.1rem;
+    }
+    
+    .header-slogan {
+        font-size: 0.6rem;
+        margin-top: -3px;
     }
     
     .btn {
@@ -1581,6 +1644,22 @@ footer {
         grid-template-columns: 1fr;
         gap: 25px;
     }
+
+    .logo h1, .logo h2 {
+        font-size: 1.1rem;
+    }
+    
+    .header-subhuk, .header-childcare {
+        font-size: 0.75rem;
+    }
+    
+    .header-subhuk {
+        margin: 0 0 1px 0;
+    }
+    
+    .header-childcare {
+        margin: 1px 0 0 0;
+    }
 }
 
 /* Define the main .cta-buttons style here */
@@ -1598,9 +1677,10 @@ footer {
 .date-field-container {
     position: relative;
     width: 100%;
+    margin-bottom: 15px;
 }
 
-.date-label {
+.date-placeholder {
     position: absolute;
     top: 50%;
     left: 15px;
@@ -1608,12 +1688,55 @@ footer {
     color: #888;
     pointer-events: none;
     font-size: 0.95rem;
+    transition: opacity 0.2s ease;
+}
+
+.contact-form input[type="date"] {
+    padding: 15px;
+    width: 100%;
+    color: #333;
+    cursor: pointer;
 }
 
 /* Hide the placeholder when date is selected */
-.contact-form input[type="date"]:valid + .date-label,
-.contact-form input[type="date"]:focus + .date-label {
-    display: none;
+.contact-form input[type="date"]:not([value=""]):not(:focus) + .date-placeholder,
+.contact-form input[type="date"]:focus + .date-placeholder,
+.contact-form input[type="date"]:valid + .date-placeholder {
+    opacity: 0;
+}
+
+/* Style the date input specifically for Firefox */
+.contact-form input[type="date"]::-moz-calendar-picker-indicator {
+    background: transparent;
+    color: transparent;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+/* Style the date input specifically for Chrome/Edge */
+.contact-form input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+/* Responsive styles for the date field */
+@media (max-width: 480px) {
+    .contact-form input[type="date"] {
+        padding: 12px 15px;
+    }
+    
+    .date-placeholder {
+        font-size: 0.9rem;
+    }
 }
 
 /* Gallery Section - Modern Update */
